@@ -176,6 +176,7 @@ class GridSquare {
    *   borderColor          — 边框与切割线颜色
    *   cutProgress          — 切割进度 0-1（GSAP 动画目标）
    *   onClick              — 点击回调 (cellIndex, selectedSet) => {}
+   *   showCellLabels       — 是否在格心显示序号（百格图建议 false，避免拥挤）
    */
   constructor(p, config = {}) {
     this.p            = p;
@@ -189,9 +190,21 @@ class GridSquare {
     this.borderColor  = config.borderColor  ?? '--color-whole-border';
     this.cutProgress  = config.cutProgress  ?? 0;
     this.onClick      = config.onClick      ?? null;
+    this.showCellLabels = config.showCellLabels !== false;
     this.selected     = new Set();
+    this._cellAlphas  = {};   // idx → alpha 0-215，供外部 GSAP 驱动选中淡入
     this._cw          = this.size / this.cols;
     this._ch          = this.size / this.rows;
+  }
+
+  /** 切换行列数（如 10×1 → 10×10），会清空选中 */
+  setGrid(rows, cols) {
+    this.rows = rows;
+    this.cols = cols;
+    this.selected.clear();
+    this._cellAlphas = {};
+    this._cw = this.size / this.cols;
+    this._ch = this.size / this.rows;
   }
 
   resize(x, y, size) {
@@ -203,19 +216,25 @@ class GridSquare {
   getSelectedCount() { return this.selected.size; }
 
   // 处理点击，返回被点击的格子序号（-1=未命中）
+  // 选中时把 _cellAlphas[idx] 置 0，由外部 GSAP 驱动淡入到 215
   handleClick(mx, my) {
     if (this.cutProgress < 0.95) return -1;
     if (mx < this.x || mx > this.x + this.size || my < this.y || my > this.y + this.size) return -1;
     const col = Math.min(Math.floor((mx - this.x) / this._cw), this.cols - 1);
     const row = Math.min(Math.floor((my - this.y) / this._ch), this.rows - 1);
     const idx = row * this.cols + col;
-    if (this.selected.has(idx)) this.selected.delete(idx);
-    else                        this.selected.add(idx);
+    if (this.selected.has(idx)) {
+      this.selected.delete(idx);
+      delete this._cellAlphas[idx];
+    } else {
+      this.selected.add(idx);
+      this._cellAlphas[idx] = 0;   // 外部将其 tween 到 215
+    }
     if (this.onClick) this.onClick(idx, this.selected);
     return idx;
   }
 
-  reset() { this.selected.clear(); this.cutProgress = 0; }
+  reset() { this.selected.clear(); this._cellAlphas = {}; this.cutProgress = 0; }
 
   draw() {
     const { p, x, y, size, rows, cols, cutProgress } = this;
@@ -224,6 +243,8 @@ class GridSquare {
     const [fr, fg, fb] = this._clr(this.color);
     const [sr, sg, sb] = this._clr(this.selectedColor);
 
+    p.push();
+
     // --- 格子填充 ---
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
@@ -231,8 +252,12 @@ class GridSquare {
         const cx  = x + c * cw;
         const cy  = y + r * ch;
         p.noStroke();
-        if (this.selected.has(idx)) p.fill(sr, sg, sb, 215);
-        else                         p.fill(fr, fg, fb);
+        if (this.selected.has(idx)) {
+          // 使用 _cellAlphas 驱动淡入效果，默认 215
+          p.fill(sr, sg, sb, Math.round(this._cellAlphas[idx] ?? 215));
+        } else {
+          p.fill(fr, fg, fb);
+        }
         p.rect(cx + 1, cy + 1, cw - 2, ch - 2, 2);
       }
     }
@@ -270,8 +295,8 @@ class GridSquare {
       p.textStyle(p.NORMAL);
     }
 
-    // --- 切割后：格子序号 ---
-    if (cutProgress > 0.95) {
+    // --- 切割后：格子序号（百格图可关闭以保清晰） ---
+    if (cutProgress > 0.95 && this.showCellLabels) {
       p.textAlign(p.CENTER, p.CENTER);
       p.textSize(Math.max(10, Math.min(14, cw * 0.4, ch * 0.4)));
       for (let r = 0; r < rows; r++) {
@@ -283,6 +308,8 @@ class GridSquare {
         }
       }
     }
+
+    p.pop();
   }
 
   // 解析颜色：支持 '--css-var' 或 '#hex'

@@ -29,7 +29,7 @@ const NAV_CONFIG = [
     id: 'u4', title: '第4单元', subtitle: '小数的意义和性质', icon: '🔢',
     lessons: [
       { id: '4-1', title: '4-1 小数的意义',              key: 'u4/4-1', file: 'units/u4/4-1-meaning.js' },
-      { id: '4-2', title: '4-2 小数的读法和写法',        key: 'u4/4-2', file: null },
+      { id: '4-2', title: '4-2 小数的读法和写法',        key: 'u4/4-2', file: 'units/u4/4-2-understand.js' },
       { id: '4-3', title: '4-3 小数的性质',              key: 'u4/4-3', file: null },
       { id: '4-4', title: '4-4 小数的大小比较',          key: 'u4/4-4', file: null },
       { id: '4-5', title: '4-5 小数点移动',              key: 'u4/4-5', file: null },
@@ -82,6 +82,20 @@ let activeLesson  = null;
 let currentModule = null;
 const loadedScripts = new Set();
 
+function bindTap(el, handler) {
+  if (!el) return;
+  let lastTouchTs = 0;
+  el.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    lastTouchTs = Date.now();
+    handler(e);
+  }, { passive: false });
+  el.addEventListener('click', (e) => {
+    if (Date.now() - lastTouchTs < 500) return;
+    handler(e);
+  });
+}
+
 // ============================================================
 //  Mobile sidebar helpers
 // ============================================================
@@ -115,6 +129,7 @@ function renderNav() {
     header.setAttribute('role', 'button');
     header.setAttribute('tabindex', '0');
     header.innerHTML = `
+      <span class="nav-unit-badge">${unitIdx + 1}</span>
       <span class="nav-unit-icon">${unit.icon}</span>
       <div class="nav-unit-text">
         <div class="nav-unit-title">${unit.title}</div>
@@ -145,7 +160,7 @@ function renderNav() {
           loadLesson(lesson, unit);
           if (isMobile()) closeSidebar();
         };
-        el.addEventListener('click', activate);
+        bindTap(el, activate);
         el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') activate(); });
       }
       lessonsEl.appendChild(el);
@@ -166,7 +181,7 @@ function renderNav() {
       }
     };
 
-    header.addEventListener('click', toggleUnit);
+    bindTap(header, toggleUnit);
     header.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') toggleUnit(); });
 
     lessonsEl.style.maxHeight  = '0';
@@ -256,11 +271,11 @@ function destroyCurrentModule() {
 document.addEventListener('DOMContentLoaded', () => {
   renderNav();
 
-  document.getElementById('topbar-menu').addEventListener('click', openSidebar);
-  document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
+  bindTap(document.getElementById('topbar-menu'), openSidebar);
+  bindTap(document.getElementById('sidebar-close'), closeSidebar);
 
   const backdrop = document.getElementById('sidebar-backdrop');
-  backdrop.addEventListener('click', closeSidebar);
+  bindTap(backdrop, closeSidebar);
 
   let touchStartX = 0;
   document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
