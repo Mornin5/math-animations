@@ -1,39 +1,78 @@
 // ============================================================
-//  Navigation — config + dynamic module loading + mobile UX
+//  Navigation — 四年级下册（人教版）全册结构
 // ============================================================
 
 const NAV_CONFIG = [
   {
-    id: 'u4',
-    title: '第四单元',
-    subtitle: '小数的初步认识',
-    icon: '🔢',
+    id: 'u1', title: '第1单元', subtitle: '四则运算', icon: '➕',
     lessons: [
-      { id: '4-1', title: '4-1 小数的意义',      key: 'u4/4-1', file: 'units/u4/4-1-meaning.js' },
-      { id: '4-2', title: '4-2 小数的读写',      key: 'u4/4-2', file: null },
-      { id: '4-3', title: '4-3 小数的大小比较',  key: 'u4/4-3', file: null },
-      { id: '4-4', title: '4-4 小数加减法',      key: 'u4/4-4', file: null },
+      { id: '1-1', title: '1-1 含括号的四则运算', key: 'u1/1-1', file: null },
+      { id: '1-2', title: '1-2 运算顺序',         key: 'u1/1-2', file: null },
     ],
   },
   {
-    id: 'u5',
-    title: '第五单元',
-    subtitle: '三位数乘两位数',
-    icon: '✖️',
+    id: 'u2', title: '第2单元', subtitle: '观察物体（二）', icon: '👁️',
     lessons: [
-      { id: '5-1', title: '5-1 口算乘法',  key: 'u5/5-1', file: null },
-      { id: '5-2', title: '5-2 笔算乘法',  key: 'u5/5-2', file: null },
-      { id: '5-3', title: '5-3 乘法估算',  key: 'u5/5-3', file: null },
+      { id: '2-1', title: '2-1 从不同方向观察', key: 'u2/2-1', file: null },
     ],
   },
   {
-    id: 'u6',
-    title: '第六单元',
-    subtitle: '面积',
-    icon: '📐',
+    id: 'u3', title: '第3单元', subtitle: '运算律', icon: '⚖️',
     lessons: [
-      { id: '6-1', title: '6-1 面积的意义', key: 'u6/6-1', file: null },
-      { id: '6-2', title: '6-2 面积单位',   key: 'u6/6-2', file: null },
+      { id: '3-1', title: '3-1 加法交换律与结合律', key: 'u3/3-1', file: null },
+      { id: '3-2', title: '3-2 乘法交换律与结合律', key: 'u3/3-2', file: null },
+      { id: '3-3', title: '3-3 乘法分配律',         key: 'u3/3-3', file: null },
+      { id: '3-4', title: '3-4 简便计算',           key: 'u3/3-4', file: null },
+    ],
+  },
+  {
+    id: 'u4', title: '第4单元', subtitle: '小数的意义和性质', icon: '🔢',
+    lessons: [
+      { id: '4-1', title: '4-1 小数的意义',              key: 'u4/4-1', file: 'units/u4/4-1-meaning.js' },
+      { id: '4-2', title: '4-2 小数的读法和写法',        key: 'u4/4-2', file: null },
+      { id: '4-3', title: '4-3 小数的性质',              key: 'u4/4-3', file: null },
+      { id: '4-4', title: '4-4 小数的大小比较',          key: 'u4/4-4', file: null },
+      { id: '4-5', title: '4-5 小数点移动',              key: 'u4/4-5', file: null },
+      { id: '4-6', title: '4-6 解决问题',                key: 'u4/4-6', file: null },
+      { id: '4-7', title: '4-7 小数与单位换算',          key: 'u4/4-7', file: null },
+      { id: '4-8', title: '4-8 小数的近似数',            key: 'u4/4-8', file: null },
+      { id: '4-9', title: '4-9 整理和复习',              key: 'u4/4-9', file: null },
+    ],
+  },
+  {
+    id: 'u5', title: '第5单元', subtitle: '三角形', icon: '📐',
+    lessons: [
+      { id: '5-1', title: '5-1 三角形的特性',   key: 'u5/5-1', file: null },
+      { id: '5-2', title: '5-2 三角形的分类',   key: 'u5/5-2', file: null },
+      { id: '5-3', title: '5-3 三角形的内角和', key: 'u5/5-3', file: null },
+    ],
+  },
+  {
+    id: 'u6', title: '第6单元', subtitle: '小数的加法和减法', icon: '➕',
+    lessons: [
+      { id: '6-1', title: '6-1 小数加减法',   key: 'u6/6-1', file: null },
+      { id: '6-2', title: '6-2 混合运算',     key: 'u6/6-2', file: null },
+    ],
+  },
+  {
+    id: 'u7', title: '第7单元', subtitle: '图形的运动（二）', icon: '🔄',
+    lessons: [
+      { id: '7-1', title: '7-1 轴对称',   key: 'u7/7-1', file: null },
+      { id: '7-2', title: '7-2 平移',     key: 'u7/7-2', file: null },
+      { id: '7-3', title: '7-3 旋转',     key: 'u7/7-3', file: null },
+    ],
+  },
+  {
+    id: 'u8', title: '第8单元', subtitle: '平均数与条形统计图', icon: '📊',
+    lessons: [
+      { id: '8-1', title: '8-1 平均数',     key: 'u8/8-1', file: null },
+      { id: '8-2', title: '8-2 条形统计图', key: 'u8/8-2', file: null },
+    ],
+  },
+  {
+    id: 'u9', title: '第9单元', subtitle: '数学广角——鸡兔同笼', icon: '🐇',
+    lessons: [
+      { id: '9-1', title: '9-1 鸡兔同笼', key: 'u9/9-1', file: null },
     ],
   },
 ];
@@ -46,14 +85,12 @@ const loadedScripts = new Set();
 // ============================================================
 //  Mobile sidebar helpers
 // ============================================================
-function isMobileLayout() {
-  return window.innerWidth <= 700;
-}
+const isMobile = () => window.innerWidth <= 700;
 
 function openSidebar() {
   document.getElementById('sidebar').classList.add('open');
   document.getElementById('sidebar-backdrop').classList.add('visible');
-  document.body.style.overflow = 'hidden'; // prevent background scroll
+  document.body.style.overflow = 'hidden';
 }
 
 function closeSidebar() {
@@ -73,7 +110,6 @@ function renderNav() {
     const unitEl = document.createElement('div');
     unitEl.className = 'nav-unit';
 
-    // Header
     const header = document.createElement('div');
     header.className = 'nav-unit-header';
     header.setAttribute('role', 'button');
@@ -87,10 +123,8 @@ function renderNav() {
       <span class="nav-unit-arrow">▶</span>
     `;
 
-    // Lessons list
     const lessonsEl = document.createElement('div');
     lessonsEl.className = 'nav-lessons';
-    lessonsEl.setAttribute('role', 'list');
 
     unit.lessons.forEach(lesson => {
       const el = document.createElement('div');
@@ -109,28 +143,22 @@ function renderNav() {
       } else {
         const activate = () => {
           loadLesson(lesson, unit);
-          // Auto-close sidebar on mobile after selecting a lesson
-          if (isMobileLayout()) closeSidebar();
+          if (isMobile()) closeSidebar();
         };
         el.addEventListener('click', activate);
         el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') activate(); });
       }
-
       lessonsEl.appendChild(el);
     });
 
-    // Toggle accordion
     const toggleUnit = () => {
       const isOpen = header.classList.contains('expanded');
-
-      // Collapse all units
       document.querySelectorAll('.nav-unit-header.expanded').forEach(h => {
         h.classList.remove('expanded');
         const list = h.nextElementSibling;
         list.style.maxHeight = '0';
-        list.style.opacity  = '0';
+        list.style.opacity   = '0';
       });
-
       if (!isOpen) {
         header.classList.add('expanded');
         lessonsEl.style.maxHeight = lessonsEl.scrollHeight + 'px';
@@ -141,18 +169,17 @@ function renderNav() {
     header.addEventListener('click', toggleUnit);
     header.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') toggleUnit(); });
 
-    // Init collapsed
-    lessonsEl.style.maxHeight = '0';
-    lessonsEl.style.opacity   = '0';
-    lessonsEl.style.overflow  = 'hidden';
+    lessonsEl.style.maxHeight  = '0';
+    lessonsEl.style.opacity    = '0';
+    lessonsEl.style.overflow   = 'hidden';
     lessonsEl.style.transition = 'max-height 0.28s ease, opacity 0.22s ease';
 
     unitEl.appendChild(header);
     unitEl.appendChild(lessonsEl);
     navTree.appendChild(unitEl);
 
-    // Auto-expand first unit
-    if (unitIdx === 0) {
+    // Auto-expand 第4单元 (current unit)
+    if (unit.id === 'u4') {
       header.classList.add('expanded');
       requestAnimationFrame(() => {
         lessonsEl.style.maxHeight = lessonsEl.scrollHeight + 'px';
@@ -169,39 +196,30 @@ function loadLesson(lesson, unit) {
   if (activeLesson === lesson.id) return;
   activeLesson = lesson.id;
 
-  // Highlight active nav item
   document.querySelectorAll('.nav-lesson').forEach(el => el.classList.remove('active'));
   const navEl = document.querySelector(`.nav-lesson[data-id="${lesson.id}"]`);
   if (navEl) navEl.classList.add('active');
 
-  // Update topbar title (mobile)
   const topbarTitle = document.getElementById('topbar-title');
   if (topbarTitle) topbarTitle.textContent = lesson.title;
 
-  // Switch view
   document.getElementById('welcome-screen').classList.add('hidden');
-  const lessonView = document.getElementById('lesson-view');
-  lessonView.classList.remove('hidden');
+  document.getElementById('lesson-view').classList.remove('hidden');
 
-  // Update desktop header
   const breadcrumb = document.getElementById('lesson-breadcrumb');
   const titleEl    = document.getElementById('lesson-title');
   if (breadcrumb) breadcrumb.textContent = `${unit.title} · ${unit.subtitle}`;
   if (titleEl)    titleEl.textContent    = lesson.title;
 
-  // Teardown current module
   destroyCurrentModule();
 
-  // Clear containers
-  document.getElementById('canvas-container').innerHTML     = '';
-  document.getElementById('controls-container').innerHTML   = '';
-  document.getElementById('description-container').innerHTML = '';
+  ['canvas-container', 'controls-container', 'description-container'].forEach(id => {
+    document.getElementById(id).innerHTML = '';
+  });
 
-  // Scroll main to top
   const main = document.getElementById('main');
   if (main) main.scrollTop = 0;
 
-  // Load script (or reuse cached)
   if (loadedScripts.has(lesson.file)) {
     activateModule(lesson.key);
   } else {
@@ -228,9 +246,7 @@ function activateModule(key) {
 }
 
 function destroyCurrentModule() {
-  if (currentModule && typeof currentModule.destroy === 'function') {
-    currentModule.destroy();
-  }
+  if (currentModule && typeof currentModule.destroy === 'function') currentModule.destroy();
   currentModule = null;
 }
 
@@ -240,44 +256,19 @@ function destroyCurrentModule() {
 document.addEventListener('DOMContentLoaded', () => {
   renderNav();
 
-  // ---- Mobile: topbar hamburger button ----
-  const topbarMenu = document.getElementById('topbar-menu');
-  if (topbarMenu) {
-    topbarMenu.addEventListener('click', openSidebar);
-  }
+  document.getElementById('topbar-menu').addEventListener('click', openSidebar);
+  document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
 
-  // ---- Mobile: close sidebar via ✕ button inside sidebar ----
-  const sidebarClose = document.getElementById('sidebar-close');
-  if (sidebarClose) {
-    sidebarClose.addEventListener('click', closeSidebar);
-  }
-
-  // ---- Mobile: click backdrop to close sidebar ----
   const backdrop = document.getElementById('sidebar-backdrop');
-  if (backdrop) {
-    backdrop.addEventListener('click', closeSidebar);
-    // Touch gesture: swipe left to close
-    let touchStartX = 0;
-    document.addEventListener('touchstart', e => {
-      touchStartX = e.touches[0].clientX;
-    }, { passive: true });
-    document.addEventListener('touchend', e => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      if (dx < -60 && document.getElementById('sidebar').classList.contains('open')) {
-        closeSidebar();
-      }
-    }, { passive: true });
-  }
+  backdrop.addEventListener('click', closeSidebar);
 
-  // ---- Close sidebar on Escape key ----
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeSidebar();
-  });
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    if (e.changedTouches[0].clientX - touchStartX < -60 &&
+        document.getElementById('sidebar').classList.contains('open')) closeSidebar();
+  }, { passive: true });
 
-  // ---- Re-open sidebar if window resizes to desktop (cleanup) ----
-  window.addEventListener('resize', () => {
-    if (!isMobileLayout()) {
-      closeSidebar();
-    }
-  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  window.addEventListener('resize', () => { if (!isMobile()) closeSidebar(); });
 });
