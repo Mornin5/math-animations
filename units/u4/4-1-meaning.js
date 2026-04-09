@@ -41,7 +41,7 @@ MathAnim.register('u4/4-1', {
       const w = canvasEl.clientWidth || 700;
       CW      = Math.min(w - 16, 720);
       mobile  = CW < 520;
-      CH      = mobile ? 420 : 400;
+      CH      = mobile ? 460 : 440;
 
       // 模块一：正方形位置
       const maxG  = mobile ? Math.min(CW - 40, 260) : Math.min((CW - 120) / 2, 280);
@@ -56,7 +56,7 @@ MathAnim.register('u4/4-1', {
       // 模块二：数轴
       NLX = 50;
       NLW = CW - 100;
-      NLY = Math.round(CH * 0.52);
+      NLY = Math.round(CH * 0.65);
     }
 
     // ── 构建控制区 HTML ───────────────────────────────────────
@@ -224,6 +224,7 @@ MathAnim.register('u4/4-1', {
           p.textAlign(p.CENTER, p.TOP);
           p.textSize(13);
           p.text('点击任意格子选中，可多选', GX + GS / 2, GY + GS + 12);
+          return;
         }
 
         drawInfoPanel(n);
@@ -301,7 +302,16 @@ MathAnim.register('u4/4-1', {
         const [fr, fg, fb] = MathAnim.cssRgb('--color-fraction');
         const [dr, dg, db] = MathAnim.cssRgb('--color-decimal');
         const range  = re - rs;
-        const digits = zoomLevel >= 2 ? 2 : 1;
+        const digits = zoomLevel === 0 ? 0 : zoomLevel >= 2 ? 2 : 1;
+
+        // ── 已选范围高亮（从左端到标记点） ──
+        if (markerAlpha > 0 && mv > rs) {
+          const mx2 = valToX(mv);
+          const [hr, hg, hb] = MathAnim.cssRgb('--color-highlight');
+          p.stroke(hr, hg, hb, markerAlpha * 0.85);
+          p.strokeWeight(6);
+          p.line(NLX, NLY, mx2, NLY);
+        }
 
         // ── 数轴主体 ──
         p.stroke(ar, ag, ab);
@@ -342,13 +352,13 @@ MathAnim.register('u4/4-1', {
           p.textAlign(p.CENTER, p.BOTTOM);
           p.textSize(mobile ? 20 : 24);
           p.textStyle(p.BOLD);
-          p.text(mv.toFixed(digits), mx2, NLY - 36);
+          p.text(mv.toFixed(digits), mx2, NLY - 45);
           p.textStyle(p.NORMAL);
 
           // 分数（更上方）
           if (n > 0) {
             const barW = 28;
-            const fy   = NLY - 70;
+            const fy   = NLY - 95;
             p.fill(fr, fg, fb, markerAlpha);
             p.textStyle(p.BOLD);
             p.textSize(17);
@@ -382,7 +392,7 @@ MathAnim.register('u4/4-1', {
                  MathAnim.cssRgb('--color-marker')[2], 200);
           p.textAlign(p.CENTER, p.BOTTOM);
           p.textSize(12);
-          p.text(label, CW / 2, NLY - 90);
+          p.text(label, CW / 2, 28);
         }
       }
 
@@ -408,9 +418,9 @@ MathAnim.register('u4/4-1', {
 
       // ── 鼠标 / 触摸交互 ────────────────────────────────────
       p.mousePressed   = () => handlePress(p.mouseX, p.mouseY);
-      p.touchStarted   = () => { handlePress(p.touches[0].x, p.touches[0].y); return false; };
+      p.touchStarted   = () => { handlePress(p.mouseX, p.mouseY); return false; };
       p.mouseDragged   = () => handleDrag(p.mouseX);
-      p.touchMoved     = () => { handleDrag(p.touches[0].x); return false; };
+      p.touchMoved     = () => { handleDrag(p.mouseX); return false; };
       p.mouseReleased  = () => { nlDragging = false; };
       p.touchEnded     = () => { nlDragging = false; };
 
