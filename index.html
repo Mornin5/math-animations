@@ -2,11 +2,14 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>数学教学动画</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+  <!-- 移动端遮罩层（点击关闭侧边栏） -->
+  <div id="sidebar-backdrop"></div>
+
   <div id="app">
     <!-- Sidebar -->
     <aside id="sidebar">
@@ -18,13 +21,26 @@
             <div class="logo-sub">Math Animations</div>
           </div>
         </div>
-        <button id="sidebar-toggle" aria-label="折叠菜单">☰</button>
+        <!-- 桌面端收起按钮（移动端改用 #topbar 的按钮） -->
+        <button id="sidebar-close" aria-label="关闭菜单">✕</button>
       </div>
       <nav id="nav-tree"></nav>
     </aside>
 
     <!-- Main content -->
     <main id="main">
+      <!-- 移动端顶部栏（桌面端隐藏） -->
+      <div id="topbar">
+        <button id="topbar-menu" aria-label="打开菜单">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <rect y="3"  width="20" height="2.2" rx="1.1"/>
+            <rect y="9"  width="20" height="2.2" rx="1.1"/>
+            <rect y="15" width="20" height="2.2" rx="1.1"/>
+          </svg>
+        </button>
+        <span id="topbar-title">数学教学动画</span>
+      </div>
+
       <!-- Welcome screen -->
       <div id="welcome-screen">
         <div class="welcome-content">

@@ -46,6 +46,7 @@ class NumberLine {
    *   min, max    — value range (default 0–1)
    *   ticks       — number of subdivisions (default 10)
    *   showLabels  — boolean (default true)
+   *   labelStep   — show a label every N ticks (default 1 = all; 5 = 0, 0.5, 1 only)
    *   markerValue — null or number
    */
   constructor(p, opts = {}) {
@@ -57,6 +58,7 @@ class NumberLine {
     this.max   = opts.max   ?? 1;
     this.ticks = opts.ticks ?? 10;
     this.showLabels  = opts.showLabels  !== false;
+    this.labelStep   = opts.labelStep   ?? 1;
     this.markerValue = opts.markerValue ?? null;
   }
 
@@ -81,16 +83,16 @@ class NumberLine {
 
     // Ticks & labels
     for (let i = 0; i <= ticks; i++) {
-      const tx   = x + (i / ticks) * width;
-      const val  = min + (i / ticks) * range;
-      const big  = (i === 0 || i === ticks);
+      const tx    = x + (i / ticks) * width;
+      const big   = (i === 0 || i === ticks);
       const tickH = big ? 11 : 7;
+      const showLabel = this.showLabels && (i % this.labelStep === 0 || i === ticks);
 
       p.stroke(70);
       p.strokeWeight(big ? 2 : 1.2);
       p.line(tx, y - tickH, tx, y + tickH);
 
-      if (this.showLabels) {
+      if (showLabel) {
         p.noStroke();
         p.fill(90);
         p.textAlign(p.CENTER, p.TOP);
