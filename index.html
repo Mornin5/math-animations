@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数学教学动画</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar -->
+    <aside id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <span class="logo-icon">∑</span>
+          <div>
+            <div class="logo-title">数学教学动画</div>
+            <div class="logo-sub">Math Animations</div>
+          </div>
+        </div>
+        <button id="sidebar-toggle" aria-label="折叠菜单">☰</button>
+      </div>
+      <nav id="nav-tree"></nav>
+    </aside>
+
+    <!-- Main content -->
+    <main id="main">
+      <!-- Welcome screen -->
+      <div id="welcome-screen">
+        <div class="welcome-content">
+          <div class="welcome-icon">📐</div>
+          <h2>欢迎使用数学教学动画</h2>
+          <p>请从左侧菜单选择要学习的内容</p>
+          <div class="feature-list">
+            <div class="feature-item">🎬 动态演示，直观理解数学概念</div>
+            <div class="feature-item">🎮 交互操作，自主探索规律</div>
+            <div class="feature-item">📊 多种模型，全面建立理解</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lesson view -->
+      <div id="lesson-view" class="hidden">
+        <div id="lesson-header">
+          <div id="lesson-breadcrumb"></div>
+          <h2 id="lesson-title"></h2>
+        </div>
+        <div id="canvas-container"></div>
+        <div id="controls-container"></div>
+        <div id="description-container"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- CDN Libraries (可替换为 lib/ 下的本地文件) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+
+  <!-- Shared utilities -->
+  <script src="shared/utils.js"></script>
+
+  <!-- Navigation -->
+  <script src="assets/nav.js"></script>
+</body>
+</html>
